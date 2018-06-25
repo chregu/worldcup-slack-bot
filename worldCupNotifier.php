@@ -24,7 +24,7 @@
 
 // Slack stuff
 const SLACK_TOKEN      = 'XXXXXXXXXXXXXXXX';
-const SLACK_CHANNEL    = '#worldcup';
+const SLACK_CHANNEL    = '#worldcup-rants';
 const SLACK_BOT_NAME   = 'WorldCup Bot';
 const SLACK_BOT_AVATAR = 'https://i.imgur.com/Pd0cpqE.png';
 
@@ -305,6 +305,7 @@ foreach ($db['live_matches'] as $key => $matchId)
                             break;
                         case PERIOD_2ND_HALF:
                             $subject = ':runner: '.$language[LOCALE][0].' '.$homeTeamName.' / '.$awayTeamName.' '.$language[LOCALE][11];
+                            $interestingEvent = false;
                             break;
                     }
                     break;
@@ -313,6 +314,8 @@ foreach ($db['live_matches'] as $key => $matchId)
                         case PERIOD_1ST_HALF:
                             $subject = ':toilet: '.$language[LOCALE][9].' '.$score;;
                             $details = $matchTime;
+                            $interestingEvent = false;
+
                             break;
                         case PERIOD_2ND_HALF:
                             $subject = ':stopwatch: '.$language[LOCALE][10].' '.$score;;
@@ -340,6 +343,8 @@ foreach ($db['live_matches'] as $key => $matchId)
                     $eventPlayerAlias = getEventPlayerAlias($event["IdPlayer"]);
                     $subject = ':collision: '. $language[LOCALE][2].' '.$eventTeam;
                     $details = $eventPlayerAlias.' ('.$matchTime.')';
+                    $interestingEvent = false;
+
                     break;
                 case EVENT_SECOND_YELLOW_CARD_RED:
                 case EVENT_STRAIGHT_RED:
